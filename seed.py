@@ -1,4 +1,4 @@
-import models
+from .models import Voter
 import json
 from app import db
 
@@ -64,7 +64,7 @@ with open('data.json', 'r') as data:
         status = entry["STATUS"]
         gender = entry["GENDER"]
 
-        new_voter = models.Voter(voter_id, last_name, first_name, mid_init, suffix, date_of_birth, 
+        new_voter = Voter(voter_id, last_name, first_name, mid_init, suffix, date_of_birth, 
         birth_year, phone, address, home_no, home_apt, home_street,  home_dev,
         home_city, home_zipcode, county, ed, rd, sd, cn_levy, wilm, code_home_city, 
         sch_dist, party, date_reg, pp_hist_1, pp_hist_2, pr_hist_1, pr_hist_2,

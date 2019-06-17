@@ -129,4 +129,3 @@ class Voter(db.Model):
             self.status = status
             self.gender = gender
     
-    
