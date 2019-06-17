@@ -15,7 +15,7 @@ app.register_blueprint(update_voter_blueprint)
 app.register_blueprint(create_voter_blueprint)
 
 limiter = Limiter(app, key_func=get_remote_address,
-global_limits=["5 per minute"])
+application_limits=["5 per minute"])
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -39,7 +39,6 @@ voters_schema = VoterSchema(many=True, strict=True)
 
 # All Voters
 @app.route('/voters', methods=['GET'])
-@limiter.limit('10 per second')
 def get_voters():
     all_voters = Voter.query.all()
     result = voters_schema.dump(all_voters)
@@ -47,7 +46,6 @@ def get_voters():
 
 # Single Voter
 @app.route('/voter/<id>', methods=['GET'])
-@limiter.limit('10 per 1 second')
 def get_single_voter(id):
     voter = Voter.query.get(id)
     return voter_schema.jsonify(voter)
