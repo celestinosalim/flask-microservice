@@ -6,12 +6,16 @@ from models import Voter,db
 from serializers import VoterSchema, ma
 from routes.update import update_voter_blueprint
 from routes.create import  create_voter_blueprint
-
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 # Init app
 app = Flask(__name__)
 app.register_blueprint(update_voter_blueprint)
 app.register_blueprint(create_voter_blueprint)
+
+limiter = Limiter(app, key_func=get_remote_address,
+global_limits=["5 per minute"])
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -35,6 +39,7 @@ voters_schema = VoterSchema(many=True, strict=True)
 
 # All Voters
 @app.route('/voters', methods=['GET'])
+@limiter.limit('10 per second')
 def get_voters():
     all_voters = Voter.query.all()
     result = voters_schema.dump(all_voters)
@@ -42,6 +47,7 @@ def get_voters():
 
 # Single Voter
 @app.route('/voter/<id>', methods=['GET'])
+@limiter.limit('10 per 1 second')
 def get_single_voter(id):
     voter = Voter.query.get(id)
     return voter_schema.jsonify(voter)
