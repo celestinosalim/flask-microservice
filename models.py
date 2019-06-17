@@ -1,23 +1,4 @@
-from flask import Flask, json, jsonify, request
-from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
-
-import os
-
-# Init app
-app = Flask(__name__)
-basedir = os.path.abspath(os.path.dirname(__file__))
-
-# Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://lnujflspcwrqms:565ca04b0f1bb7c7153eb44e8872e89172801ab9185cd99ace4dd7135f35c119@ec2-107-20-230-70.compute-1.amazonaws.com:5432/d56amubtoat4hh'
-app.config['SQLALCHEMY_ECHO'] = True
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db.sqlite')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-# Initialize Db
-db = SQLAlchemy(app)
-ma = Marshmallow(app)
-
+from app import app, db
 
 class Voter(db.Model):
     id = db.Column(db.Integer, primary_key = True)
