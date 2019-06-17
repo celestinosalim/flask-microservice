@@ -46,7 +46,7 @@ def get_voters():
 
 # Single Voter
 @app.route('/voter/<id>', methods=['GET'])
-@limiter.limit("10 per 1 second",  error_message='chill!')
+@limiter.limit("10 per 1 second")
 def get_single_voter(id):
     voter = Voter.query.get(id)
     return voter_schema.jsonify(voter)
