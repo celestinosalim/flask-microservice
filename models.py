@@ -1,4 +1,6 @@
-from app import app, db
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 class Voter(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -129,3 +131,4 @@ class Voter(db.Model):
             self.status = status
             self.gender = gender
     
+

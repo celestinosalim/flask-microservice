@@ -1,4 +1,4 @@
-from .models import Voter
+from models import Voter
 import json
 from app import db
 

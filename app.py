@@ -2,9 +2,9 @@ from flask import Flask, json, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import os
+from models import Voter,db
+from serializers import VoterSchema, ma
 
-from .models import Voter
-from .serializers import VoterSchema
 
 # Init app
 app = Flask(__name__)
@@ -16,8 +16,12 @@ app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize Db
-db = SQLAlchemy(app)
-ma = Marshmallow(app)
+#DATABASE DON'T NEED TO BE INITIALIZE INMMEDIATELY 
+#I can call it on models and the init like this.
+db.app = app
+db.init_app(app)
+ma.app = app
+ma.init_app(app)
 
 
 voter_schema = VoterSchema(strict=True)
@@ -244,6 +248,8 @@ def update_voter(id):
 
 
 # Run Server
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
