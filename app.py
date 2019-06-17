@@ -24,7 +24,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE')
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Initialize Db
+# Initialize DB
 #DATABASE DON'T NEED TO BE INITIALIZE INMMEDIATELY 
 #I can call it on models and the init like this.
 db.app = app
