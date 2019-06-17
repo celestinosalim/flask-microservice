@@ -45,7 +45,6 @@ def get_single_voter(id):
 # Creating voters
 @app.route('/voter', methods=['POST'])
 def create_voter():
-
     for entry in request.json['voters']:
         voter_id = entry['VOTERID']
         last_name = entry['LAST-NAME']
@@ -125,7 +124,8 @@ def create_voter():
 @app.route('/voter/<id>', methods=['PUT'])
 def update_voter(id):
     voter = Voter.query.get(id)
-    voter_id = request.json['VOTERID']
+    
+    voter_id = request.json['voter_id']
     last_name = request.json['last_name']
     first_name = request.json['first_name']
     mid_init = request.json['mid_init']
@@ -248,7 +248,6 @@ def update_voter(id):
 
 
 # Run Server
-
 
 
 if __name__ == '__main__':
